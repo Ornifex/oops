@@ -37,11 +37,7 @@ public class NullAgent implements Agent {
 	}
 
 	public boolean equals(Object o) {
-		if (o instanceof NullAgent) {
-			return true;
-		} else {
-			return false;
-		}
+        return o instanceof NullAgent;
 	}
 
 	public String toString() {

@@ -6,16 +6,27 @@
 
 package nl.rug.ai.mas.oops;
 
-import java.io.*;
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.tree.*;
+import nl.rug.ai.mas.oops.parser.analysis.DepthFirstAdapter;
+import nl.rug.ai.mas.oops.parser.lexer.Lexer;
+import nl.rug.ai.mas.oops.parser.node.EOF;
+import nl.rug.ai.mas.oops.parser.node.Node;
+import nl.rug.ai.mas.oops.parser.node.Start;
+import nl.rug.ai.mas.oops.parser.node.Token;
+import nl.rug.ai.mas.oops.parser.parser.Parser;
 
-import nl.rug.ai.mas.oops.parser.parser.*;
-import nl.rug.ai.mas.oops.parser.lexer.*;
-import nl.rug.ai.mas.oops.parser.analysis.*;
-import nl.rug.ai.mas.oops.parser.node.*;
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PushbackReader;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Stack;
 
 //NOTE: (WR) this annotation explicitly suppressed warnings about TreePath and
 //MutableTreeNode generic instantiations...
@@ -85,7 +96,7 @@ public class ASTDisplay extends DepthFirstAdapter
 	public void defaultCase(Node node) {
 		DefaultMutableTreeNode thisNode = new DefaultMutableTreeNode(
 				((Token)node).getText());
-		((DefaultMutableTreeNode)parents.peek()).add(thisNode);
+		parents.peek().add(thisNode);
 	}
     
 	public void caseEOF(EOF node) {
@@ -106,7 +117,7 @@ public class ASTDisplay extends DepthFirstAdapter
 		for (Iterator<TreePath> i = extremalPaths(tree.getModel(), path,
 				new HashSet<TreePath>()).iterator();
 				i.hasNext(); )
-			tree.expandPath((TreePath)i.next());
+			tree.expandPath(i.next());
 	}
 
 	/** The "extremal paths" of the tree model's subtree starting at

@@ -20,6 +20,6 @@
 package nl.rug.ai.mas.oops.render.tree;
 
 public interface Cell {
-	public int getWidth();
-	public int getHeight();
+	int getWidth();
+	int getHeight();
 }

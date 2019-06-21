@@ -3,12 +3,13 @@ package nl.rug.ai.mas.oops.tableau.test;
 import nl.rug.ai.mas.oops.formula.Formula;
 import nl.rug.ai.mas.oops.parser.Context;
 import nl.rug.ai.mas.oops.parser.FormulaParser;
-import nl.rug.ai.mas.oops.tableau.MultiModalValidator;
 import nl.rug.ai.mas.oops.tableau.FormulaValidator;
-
-import org.junit.Test;
+import nl.rug.ai.mas.oops.tableau.MultiModalValidator;
 import org.junit.Before;
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class MultiModalValidatorTest {
 	private FormulaParser d_parser;
@@ -32,5 +33,6 @@ public class MultiModalValidatorTest {
 		assertTrue(v.validate(parse("~p & V")));
 		assertTrue(v.validate(parse("#_1 x")));
 		assertFalse(v.validate(parse("# x")));
+		assertFalse(v.validate(parse("a ! b")));
 	}
 }

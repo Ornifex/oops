@@ -44,10 +44,8 @@ public class FullSubstitution {
 	public boolean merge(FullSubstitution other) {
 		if (!d_fsub.merge(other.d_fsub))
 			return false;
-		if (!d_asub.merge(other.d_asub))
-			return false;
-		return true;
-	}
+        return d_asub.merge(other.d_asub);
+    }
 
 	public Formula put(Variable<Formula> k, Formula v) {
 		return d_fsub.put(k, v);

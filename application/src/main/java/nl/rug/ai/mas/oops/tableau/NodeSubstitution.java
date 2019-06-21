@@ -19,7 +19,10 @@
 
 package nl.rug.ai.mas.oops.tableau;
 
-import nl.rug.ai.mas.oops.formula.*;
+import nl.rug.ai.mas.oops.formula.Agent;
+import nl.rug.ai.mas.oops.formula.Formula;
+import nl.rug.ai.mas.oops.formula.FullSubstitution;
+import nl.rug.ai.mas.oops.formula.Substitution;
 
 public class NodeSubstitution {
 	Substitution<Label> d_lsub;
@@ -53,11 +56,8 @@ public class NodeSubstitution {
 		if (!d_fsub.merge(s.getFormulaSubstitution()))
 			return false;
 
-		if (d_constraint != null && !d_constraint.validate(this))
-			return false;
-
-		return true;
-	}
+        return d_constraint == null || d_constraint.validate(this);
+    }
 
 	public boolean merge(LabelSubstitution ls, FullSubstitution fs) {
 		if (!d_lsub.merge(ls.getLabelSubstitution()))
@@ -67,25 +67,16 @@ public class NodeSubstitution {
 		if (!d_asub.merge(ls.getAgentSubstitution()))
 			return false;
 
-		if (!merge(fs))
-			return false;
-
-		//if (d_constraint != null && !d_constraint.validate(this))
-		//	return false;
-
-		return true;
-	}
+        return merge(fs);
+    }
 
 	public boolean merge(FullSubstitution fs) {
 		if (!d_fsub.merge(fs.getFormulaSubstitution()))
 			return false;
 		if (!d_asub.merge(fs.getAgentSubstitution()))
 			return false;
-		if (d_constraint != null && !d_constraint.validate(this))
-			return false;
-
-		return true;
-	}
+        return d_constraint == null || d_constraint.validate(this);
+    }
 
 	public Substitution<Label> getLabelSubstitution() {
 		return d_lsub;

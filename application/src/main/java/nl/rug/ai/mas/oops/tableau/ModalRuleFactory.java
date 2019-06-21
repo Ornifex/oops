@@ -19,20 +19,42 @@
 
 package nl.rug.ai.mas.oops.tableau;
 
-import java.util.*;
-
 import nl.rug.ai.mas.oops.formula.*;
 import nl.rug.ai.mas.oops.parser.Context;
+
+import java.util.Vector;
+
+import static nl.rug.ai.mas.oops.render.Constants.DISJ;
 
 public class ModalRuleFactory {
 	public static String LOZENGE = "&#9674;";
 	public static String SQUARE = "&#9723;";
 
 	private interface RuleClosure {
-		public Rule buildRule(Context c);
+		Rule buildRule(Context c);
 	}
 
 	public enum RuleID {
+		Announce1(new RuleClosure() {
+			public Rule buildRule(Context c) {
+				return buildAnnounce1(c);
+			}
+		}),
+		Announce2(new RuleClosure() {
+			public Rule buildRule(Context c) {
+				return buildAnnounce2(c);
+			}
+		}),
+		Sannounce1(new RuleClosure() {
+			public Rule buildRule(Context c) {
+				return buildSannounce1(c);
+			}
+		}),
+		Sannounce2(new RuleClosure() {
+			public Rule buildRule(Context c) {
+				return buildSannounce2(c);
+			}
+		}),
 		PosO1(new RuleClosure() {
 			public Rule buildRule(Context c) {
 				return buildPosO1(c);
@@ -664,6 +686,92 @@ public class ModalRuleFactory {
 		// rewrites
 		Formula rwt = new Negation(new MultiBox(iref, fref));
 		
-		return new AgentLinearRule("EK2", html, f, rwt, context, iref);
+		return new AgentLinearRule("EK4", html, f, rwt, context, iref);
+	}
+
+	public static Rule buildAnnounce1(Context context) {
+		String html = DISJ + "<sub>" + "!" + "</sub>";
+		// variables
+		Variable<Formula> l = new Variable<Formula>("L");
+		FormulaReference lref = new FormulaReference(l,
+				context.getFormulaCodeMap().code(l));
+
+		Variable<Formula> r = new Variable<Formula>("R");
+		FormulaReference rref = new FormulaReference(r,
+				context.getFormulaCodeMap().code(r));
+
+		// formula
+		Formula f = new Negation(new Announcement(lref, rref));
+
+		// rewrites
+		Vector<Formula> rwt = new Vector<Formula>(2);
+		rwt.add(new Negation(lref));
+		rwt.add(new Conjunction(lref, rref));
+
+		return new LinearRule("Announce1", html, f, rwt);
+	}
+
+	public static Rule buildAnnounce2(Context context) {
+		String html = DISJ + "<sub>" + "!" + "</sub>";
+		// variables
+		Variable<Formula> l = new Variable<Formula>("L");
+		FormulaReference lref = new FormulaReference(l,
+				context.getFormulaCodeMap().code(l));
+
+		Variable<Formula> r = new Variable<Formula>("R");
+		FormulaReference rref = new FormulaReference(r,
+				context.getFormulaCodeMap().code(r));
+
+		// formula
+		Formula f = new Announcement(lref, rref);
+
+		// rewrites
+		Vector<Formula> rwt = new Vector<Formula>(2);
+		rwt.add(new Negation(lref));
+		rwt.add(new Conjunction(lref, rref));
+
+		return new SplitRule("Announce2", html, f, rwt);
+	}
+
+	public static Rule buildSannounce1(Context context) {
+		String html = DISJ + "<sub>" + "?" + "</sub>";
+		// variables
+		Variable<Formula> l = new Variable<Formula>("L");
+		FormulaReference lref = new FormulaReference(l,
+				context.getFormulaCodeMap().code(l));
+
+		Variable<Formula> r = new Variable<Formula>("R");
+		FormulaReference rref = new FormulaReference(r,
+				context.getFormulaCodeMap().code(r));
+
+		// formula
+		Formula f = new Negation(new Sannouncement(lref, rref));
+
+		// rewrites
+		Vector<Formula> rwt = new Vector<Formula>(2);
+		rwt.add(new Announcement(lref, new Negation(rref)));
+
+		return new LinearRule("Sannounce1", html, f, rwt);
+	}
+
+	public static Rule buildSannounce2(Context context) {
+		String html = DISJ + "<sub>" + "?" + "</sub>";
+		// variables
+		Variable<Formula> l = new Variable<Formula>("L");
+		FormulaReference lref = new FormulaReference(l,
+				context.getFormulaCodeMap().code(l));
+
+		Variable<Formula> r = new Variable<Formula>("R");
+		FormulaReference rref = new FormulaReference(r,
+				context.getFormulaCodeMap().code(r));
+
+		// formula
+		Formula f = new Sannouncement(lref, rref);
+
+		// rewrites
+		Vector<Formula> rwt = new Vector<Formula>(2);
+		rwt.add(new Negation(new Announcement(lref, new Negation(rref))));
+
+		return new LinearRule("Sannounce2", html, f, rwt);
 	}
 }

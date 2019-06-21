@@ -19,16 +19,21 @@
 
 package nl.rug.ai.mas.oops;
 
-import java.util.*;
-
-import nl.rug.ai.mas.oops.formula.*;
+import nl.rug.ai.mas.oops.formula.Formula;
+import nl.rug.ai.mas.oops.formula.Negation;
 import nl.rug.ai.mas.oops.model.ConfigurableModel;
 import nl.rug.ai.mas.oops.model.ConfigurableModel.Relation;
 import nl.rug.ai.mas.oops.model.KripkeModel;
 import nl.rug.ai.mas.oops.parser.Context;
 import nl.rug.ai.mas.oops.parser.FormulaParser;
-import nl.rug.ai.mas.oops.tableau.*;
+import nl.rug.ai.mas.oops.tableau.ModalRuleFactory;
 import nl.rug.ai.mas.oops.tableau.ModalRuleFactory.RuleID;
+import nl.rug.ai.mas.oops.tableau.PropositionalRuleFactory;
+import nl.rug.ai.mas.oops.tableau.Rule;
+import nl.rug.ai.mas.oops.tableau.Tableau;
+
+import java.util.Collections;
+import java.util.Vector;
 
 /**
  * Proves formulas using a tableau.
@@ -40,9 +45,9 @@ public class Prover {
 	private enum Mode {
 		PROVE,
 		SAT
-	};
+	}
 
-	/**
+    /**
 	 * The axiom system this prover was constructed from.
 	 */
 	private final AxiomSystem d_axiomSystem;

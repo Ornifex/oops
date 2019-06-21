@@ -92,6 +92,10 @@ public class Constants {
 	 */
 	public static final char TRQUINE = '\u231d';
 
+	public static final char ANN = '!';
+
+	public static final char SANN = '?';
+
 	/**
 	 * Do not allow instances of this class.
 	 */

@@ -24,29 +24,29 @@ public interface Formula {
 	 * Attempt to match this formula to another formula, returning a
 	 * substitution for the variables in this formula.
 	 */
-	public FullSubstitution match(Formula f);
+    FullSubstitution match(Formula f);
 	/**
 	 * Substitute for all variables the values in the substitution s.
 	 */
-	public Formula substitute(FullSubstitution s);
+    Formula substitute(FullSubstitution s);
 	/**
 	 * Accept a Visitor to this formula (Visitor pattern).
 	 */
-	public void accept(FormulaVisitor v);
+    void accept(FormulaVisitor v);
 	/**
 	 * Return the simplest opposite for the formula
 	 */
-	public Formula opposite();
+    Formula opposite();
 	/**
 	 * Return wether the formula is simple (an atom or a negation of an atom).
 	 */
-	public boolean isSimple();
+    boolean isSimple();
 	/**
 	 * @return true if the formula contains no free variables, false otherwise
 	 */
-	public boolean isConcrete();
+    boolean isConcrete();
 	/**
 	 * @return The code number for this Formula.
 	 */
-	public int code();
+    int code();
 }

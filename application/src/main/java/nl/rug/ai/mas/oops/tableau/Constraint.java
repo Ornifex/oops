@@ -28,5 +28,5 @@ public interface Constraint {
 	/**
 	 * @return false if the constraint is violated, true otherwise.
 	 */
-	public boolean validate(NodeSubstitution s);
+    boolean validate(NodeSubstitution s);
 }

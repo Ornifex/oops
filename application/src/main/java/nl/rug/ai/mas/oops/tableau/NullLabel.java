@@ -55,11 +55,7 @@ public class NullLabel implements Label {
 	 * A NullLabel equals() all other NullLabel instances.
 	 */
 	public boolean equals(Object o) {
-		if (o instanceof NullLabel) {
-			return true;
-		} else {
-			return false;
-		}
+        return o instanceof NullLabel;
 	}
 
 	/**

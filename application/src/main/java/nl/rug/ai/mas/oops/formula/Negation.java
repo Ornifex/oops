@@ -83,11 +83,8 @@ public class Negation implements PropositionalF {
 					) == null && d_right.isSimple())
 			return true;
 			*/
-		if (!(d_right instanceof Negation) && d_right.isSimple()) {
-			return true;
-		}
-		return false;
-	}
+        return !(d_right instanceof Negation) && d_right.isSimple();
+    }
 
 	public boolean isConcrete() {
 		return d_right.isConcrete();

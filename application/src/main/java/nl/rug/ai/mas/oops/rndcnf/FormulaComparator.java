@@ -20,6 +20,7 @@
 package nl.rug.ai.mas.oops.rndcnf;
 
 import nl.rug.ai.mas.oops.formula.*;
+
 import java.util.Comparator;
 
 public class FormulaComparator implements Comparator<Formula> {
@@ -124,9 +125,6 @@ public class FormulaComparator implements Comparator<Formula> {
 	}
 
 	public boolean equals(Object obj) {
-		if (obj instanceof FormulaComparator) {
-			return true;
-		}
-		return false;
-	}
+        return obj instanceof FormulaComparator;
+    }
 }

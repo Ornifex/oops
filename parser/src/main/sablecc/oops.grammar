@@ -50,6 +50,8 @@ Tokens
 	lparen = '(';
 	rparen = ')';
 	subscr = '_';
+	ann    = '!';
+	sann   = '?';
 	ignore = space | tab | newline;
 	comment = '/''/' [any - [cr + lf]]* newline;
 
@@ -60,33 +62,37 @@ Productions
 	formula {-> formula} =
 		{imp} [l]:disjunction impl [r]:formula
 			{ -> New formula.implication(l.formula, r.formula) } |
+		{an} [l]:disjunction ann [r]:formula
+        	{ -> New formula.announcement(l.formula, r.formula) } |
+        {san} [l]:disjunction sann [r]:formula
+            { -> New formula.sannouncement(l.formula, r.formula) } |
 		{eqv} [l]:disjunction equiv [r]:formula
 			{ -> New formula.bi_implication(l.formula, r.formula) } |
 		{base} disjunction
 			{ -> disjunction.formula };
 
 	simple_formula {->formula} =
-		{proposition} prop 
+		{proposition} prop
 			{ -> New formula.proposition(prop) } |
 		{variable} var
 			{ -> New formula.variable(var) } |
-		{negation} neg simple_formula 
+		{negation} neg simple_formula
 			{ -> New formula.negation(simple_formula.formula) } |
-		{box} P.box simple_formula 
+		{box} P.box simple_formula
 			{ -> New formula.box(box.box, simple_formula.formula) } |
-		{dia} P.dia simple_formula 
+		{dia} P.dia simple_formula
 			{ -> New formula.diamond(dia.diamond, simple_formula.formula) } |
 		{nest} lparen formula rparen
 			{ -> formula.formula };
 
-	disjunction {->formula} = 
+	disjunction {->formula} =
 		{base} conjunction
 			{ -> conjunction.formula } |
 		{disj} [l]:disjunction or [r]:conjunction
 			{ -> New formula.disjunction(l.formula, r.formula) };
 
-	conjunction {->formula} = 
-		{base} [r]:simple_formula 
+	conjunction {->formula} =
+		{base} [r]:simple_formula
 			{ -> r.formula } |
 		{conj} [l]:conjunction and [r]:simple_formula
 			{ -> New formula.conjunction(l.formula, r.formula) };
@@ -96,8 +102,8 @@ Productions
 			{ -> New box.empty() } |
 		{multi} box_multi agent
 			{ -> New box.agent(agent.agent) } ;
-	dia {-> diamond} = 
-		{single} dia_single 
+	dia {-> diamond} =
+		{single} dia_single
 			{ -> New diamond.empty() } |
 		{multi} dia_multi agent
 			{ -> New diamond.agent(agent.agent) } ;
@@ -110,16 +116,19 @@ Productions
 
 Abstract Syntax Tree
 
-	formula = 
+	formula =
 		{proposition} prop |
 		{variable} var |
 		{negation} formula |
 		{box} box formula |
 		{diamond} diamond formula |
+		{announcement} [l]:formula [r]:formula |
+		{sannouncement} [l]:formula [r]:formula |
 		{conjunction} [l]:formula [r]:formula |
 		{disjunction} [l]:formula [r]:formula |
 		{implication} [l]:formula [r]:formula |
 		{bi_implication} [l]:formula [r]:formula;
+
 
 	proposition = proposition;
 	variable = variable;

@@ -32,6 +32,8 @@ public class PropositionalValidator implements FormulaValidator {
 		}
 		public void visitFormulaReference(FormulaReference f) {
 		}
+		public void visitAnnouncement(Announcement f) { d_valid = false; }
+		public void visitSannouncement(Sannouncement f) { d_valid = false; }
 
 		public boolean getResult() {
 			return d_valid;

@@ -19,8 +19,11 @@
 
 package nl.rug.ai.mas.oops.tableau;
 
-import java.util.*;
-import nl.rug.ai.mas.oops.formula.*;
+import nl.rug.ai.mas.oops.formula.Formula;
+import nl.rug.ai.mas.oops.formula.NullAgent;
+
+import java.util.PriorityQueue;
+import java.util.Vector;
 
 /**
  * A (SAT-checking) modal tableau.
@@ -32,8 +35,8 @@ import nl.rug.ai.mas.oops.formula.*;
  */
 public class Tableau {
 	public enum BranchState {
-		OPEN, CLOSED, ERROR;
-	}
+		OPEN, CLOSED, ERROR
+    }
 
 	private Vector<Rule> d_rules;
 	private String d_error;

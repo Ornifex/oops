@@ -1,13 +1,11 @@
 package nl.rug.ai.mas.oops.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import nl.rug.ai.mas.oops.AxiomSystem;
 import nl.rug.ai.mas.oops.Prover;
 import nl.rug.ai.mas.oops.TableauErrorException;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class DynamicProverTest {
 	private static String TestA1[] = {"a | ~a", "(a > b) = (~b > ~a)", "((~a > b) & (~a > ~b)) > a", "~(a & b) = (~a | ~b)", "((a > b) & (b > c)) > (a > c)", "((a | b) & (a > c) & (b > c)) > c"};
@@ -19,6 +17,11 @@ public class DynamicProverTest {
 	private static String TestA4 = "( #_1 a ) > ( #_1 (#_1 a) )";
 	private static String TestA5 = "( ~#_1 a ) > ( #_1 (~#_1 a) )";
 	private static String TestB = "(a | ~a) > ( #_1 (%_1 (a | ~a)) )";
+	private static String TestAP = "(phi ! p) = (phi > p)";
+	private static String TestAN = "phi ! (~psi) = (phi > (~phi) ! psi)";
+	private static String TestACon = "phi ! (psi & khi) = (phi ! psi & phi ! khi)";
+	private static String TestAK = "phi ! (#_1 psi) = (phi > #_1 phi ! psi)";
+	private static String TestACom = "phi ! psi ! khi = (phi & (phi ! psi) ! khi)";
 		
 	/* 	K Test  */
 	@Test public void testK() {
@@ -199,5 +202,31 @@ public class DynamicProverTest {
 			fail(e.toString());
 		}
 	}
+
+	/* 	PA Test  */
+	@Test public void testPA() {
+		try {
+			Prover prover = AxiomSystem.PA.buildProver();
+			for (String formula : TestA1) {
+				assertTrue(prover.provable(formula));
+			}
+			assertTrue(prover.provable(TestR1));
+			assertTrue(prover.provable(TestR2));
+			assertTrue(prover.provable(TestA2));
+			assertTrue(prover.provable(TestA3));
+			assertTrue(prover.provable(TestD));
+			assertTrue(prover.provable(TestA4));
+			assertTrue(prover.provable(TestA5));
+			assertTrue(prover.provable(TestB));
+			assertTrue(prover.provable(TestACom));
+			assertTrue(prover.provable(TestACon));
+			assertTrue(prover.provable(TestAN));
+			assertTrue(prover.provable(TestAK));
+			assertTrue(prover.provable(TestAP));
+		} catch (TableauErrorException e) {
+			fail(e.toString());
+		}
+	}
+
 	
 }

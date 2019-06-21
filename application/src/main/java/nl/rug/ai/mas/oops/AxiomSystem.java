@@ -1,10 +1,7 @@
 package nl.rug.ai.mas.oops;
 
 import nl.rug.ai.mas.oops.model.ConfigurableModel.Relation;
-import nl.rug.ai.mas.oops.tableau.EMultiModalValidator;
-import nl.rug.ai.mas.oops.tableau.FormulaValidator;
-import nl.rug.ai.mas.oops.tableau.MultiModalValidator;
-import nl.rug.ai.mas.oops.tableau.PropositionalValidator;
+import nl.rug.ai.mas.oops.tableau.*;
 import nl.rug.ai.mas.oops.tableau.ModalRuleFactory.RuleID;
 
 public enum AxiomSystem {
@@ -73,12 +70,17 @@ public enum AxiomSystem {
 			new RuleID[] { RuleID.PosO1, RuleID.PosO2, RuleID.PosS1, RuleID.PosS2, RuleID.BNecO1, RuleID.BNecO2, RuleID.BNecS1, RuleID.BNecS2, RuleID.SNecO1, RuleID.SNecO2, RuleID.SNecS1, RuleID.SNecS2, RuleID.EK1, RuleID.EK2, RuleID.EK3, RuleID.EK4 },
 			new Relation[] { Relation.REFLEXIVE, Relation.TRANSITIVE, Relation.SYMMETRIC },
 			new EMultiModalValidator()
+	),
+	PA(
+			new RuleID[] { RuleID.PosO1, RuleID.PosO2, RuleID.PosS1, RuleID.PosS2, RuleID.BNecO1, RuleID.BNecO2, RuleID.BNecS1, RuleID.BNecS2, RuleID.SNecO1, RuleID.SNecO2, RuleID.SNecS1, RuleID.SNecS2, RuleID.EK1, RuleID.EK2, RuleID.EK3, RuleID.EK4, RuleID.Announce1, RuleID.Announce2, RuleID.Sannounce1, RuleID.Sannounce2 },
+			new Relation[] { Relation.REFLEXIVE, Relation.TRANSITIVE, Relation.SYMMETRIC },
+			new PublicAnnouncementValidator()
 	);
 	
 	public final RuleID[] rules;
 	public final Relation[] relations;
 	public final FormulaValidator validator;
-	private AxiomSystem(RuleID[] rules, Relation[] relations, FormulaValidator validator) {
+	AxiomSystem(RuleID[] rules, Relation[] relations, FormulaValidator validator) {
 		this.rules = rules;
 		this.relations = relations;
 		this.validator = validator;

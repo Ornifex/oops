@@ -19,15 +19,14 @@
 
 package nl.rug.ai.mas.oops.parser;
 
-import java.io.*;
-import java.util.*;
-
-import nl.rug.ai.mas.oops.parser.parser.*;
-import nl.rug.ai.mas.oops.parser.lexer.*;
-import nl.rug.ai.mas.oops.parser.analysis.*;
-import nl.rug.ai.mas.oops.parser.node.*;
-
 import nl.rug.ai.mas.oops.formula.*;
+import nl.rug.ai.mas.oops.parser.analysis.DepthFirstAdapter;
+import nl.rug.ai.mas.oops.parser.lexer.Lexer;
+import nl.rug.ai.mas.oops.parser.node.*;
+import nl.rug.ai.mas.oops.parser.parser.Parser;
+
+import java.io.*;
+import java.util.LinkedList;
 
 /**
  * Class to transform a parse tree into a formula tree.
@@ -159,6 +158,22 @@ public class FormulaParser extends DepthFirstAdapter {
 		StackEntry right = d_stack.removeLast();
 		StackEntry left = d_stack.removeLast();
 		left.d_formula = new Implication(left.d_formula, right.d_formula);
+		d_stack.addLast(left);
+	}
+
+	@Override
+	public void outAAnnouncementFormula(AAnnouncementFormula node) {
+		StackEntry right = d_stack.removeLast();
+		StackEntry left = d_stack.removeLast();
+		left.d_formula = new Announcement(left.d_formula, right.d_formula);
+		d_stack.addLast(left);
+	}
+
+	@Override
+	public void outASannouncementFormula(ASannouncementFormula node) {
+		StackEntry right = d_stack.removeLast();
+		StackEntry left = d_stack.removeLast();
+		left.d_formula = new Sannouncement(left.d_formula, right.d_formula);
 		d_stack.addLast(left);
 	}
 

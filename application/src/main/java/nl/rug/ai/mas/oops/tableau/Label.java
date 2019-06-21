@@ -27,20 +27,20 @@ public interface Label {
 	 * Match this Label to another Label, returning a substitution for the
 	 * variables occuring in this Label.
 	 */
-	public NodeSubstitution match(Label other);
+    NodeSubstitution match(Label other);
 	/**
 	 * Apply a substitution for variables to this Label, replacing occurences
 	 * of variables with their substitution. This function should not modify
 	 * existing objects, but create new ones instead.
 	 */
-	public Label substitute(NodeSubstitution s);
+    Label substitute(NodeSubstitution s);
 	/**
 	 * Accept a Visitor to this label (Visitor pattern).
 	 */
-	public void accept(LabelVisitor v);
+    void accept(LabelVisitor v);
 	/**
 	 * Determine wether this contains any free variables.
 	 * @return true if the label contains no free variables
 	 */
-	public boolean isConcrete();
+    boolean isConcrete();
 }

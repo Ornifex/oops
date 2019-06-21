@@ -19,7 +19,9 @@
 
 package nl.rug.ai.mas.oops.tableau;
 
-import nl.rug.ai.mas.oops.formula.*;
+import nl.rug.ai.mas.oops.formula.Agent;
+import nl.rug.ai.mas.oops.formula.Substitution;
+import nl.rug.ai.mas.oops.formula.Variable;
 
 public class LabelSubstitution {
 	Substitution<Label> d_lsub;
@@ -50,10 +52,8 @@ public class LabelSubstitution {
 			return false;
 		if (!d_wsub.merge(other.d_wsub))
 			return false;
-		if (!d_asub.merge(other.d_asub))
-			return false;
-		return true;
-	}
+        return d_asub.merge(other.d_asub);
+    }
 
 	public Label put(Variable<Label> k, Label v) {
 		return d_lsub.put(k, v);

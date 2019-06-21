@@ -19,7 +19,8 @@
 
 package nl.rug.ai.mas.oops.tableau;
 
-import nl.rug.ai.mas.oops.formula.*;
+import nl.rug.ai.mas.oops.formula.Formula;
+import nl.rug.ai.mas.oops.formula.FullSubstitution;
 
 public class WorldInstance implements World {
 	private Formula d_formula;
@@ -103,6 +104,6 @@ public class WorldInstance implements World {
 	}
 
 	public boolean isConcrete() {
-		return (d_formula == null ? true : d_formula.isConcrete());
+		return (d_formula == null || d_formula.isConcrete());
 	}
 }

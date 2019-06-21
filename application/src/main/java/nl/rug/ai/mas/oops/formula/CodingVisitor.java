@@ -52,6 +52,14 @@ public class CodingVisitor implements FormulaVisitor {
 		visitBinary(f);
 	}
 
+	public void visitAnnouncement(Announcement f) {
+		visitBinary(f);
+	}
+
+	public void visitSannouncement(Sannouncement f) {
+		visitBinary(f);
+	}
+
 	public void visitMultiBox(MultiBox f) {
 		visitUnary(f);
 	}

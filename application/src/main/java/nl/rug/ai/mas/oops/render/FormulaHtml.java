@@ -34,6 +34,8 @@ class FormulaHtml implements FormulaVisitor {
 	public static String BIIM = "&harr;";
 	public static String LOZENGE = "&#9674;";
 	public static String SQUARE = "&#9723;";
+	public static String RANG = "&#x3009;";
+	public static String LANG = "&#x3008;";
 	public static String AGENT(Agent a) {
 		return "<sub>" + a.toString() + "</sub>";
 	}
@@ -70,6 +72,18 @@ class FormulaHtml implements FormulaVisitor {
 		String right = d_stack.pop();
 		String left = d_stack.pop();
 		d_stack.push("(" + left + IMPL + right + ")");
+	}
+
+	public void visitAnnouncement(Announcement f) {
+		String right = d_stack.pop();
+		String left = d_stack.pop();
+		d_stack.push("[" + left + "]" + right);
+	}
+
+	public void visitSannouncement(Sannouncement f) {
+		String right = d_stack.pop();
+		String left = d_stack.pop();
+		d_stack.push(LANG + left + RANG + right);
 	}
 
 	public void visitMultiBox(MultiBox f) { 

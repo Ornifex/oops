@@ -27,5 +27,5 @@ public interface TableauObserver {
 	 * Called by Tableau t in order to notify the TableauObserver of
 	 * TableauEvent e.
 	 */
-	public void update(Tableau t, TableauEvent e);
+    void update(Tableau t, TableauEvent e);
 }

@@ -20,7 +20,7 @@
 package nl.rug.ai.mas.oops.tableau;
 
 public interface LabelVisitor {
-	public void visitLabelInstance(LabelInstance l);
-	public void visitLabelReference(LabelReference l);
-	public void visitNullLabel(NullLabel l);
+	void visitLabelInstance(LabelInstance l);
+	void visitLabelReference(LabelReference l);
+	void visitNullLabel(NullLabel l);
 }

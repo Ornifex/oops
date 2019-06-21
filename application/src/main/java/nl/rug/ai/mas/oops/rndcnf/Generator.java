@@ -19,14 +19,14 @@
 
 package nl.rug.ai.mas.oops.rndcnf;
 
-import java.util.Random;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-
 import nl.rug.ai.mas.oops.formula.*;
 import nl.rug.ai.mas.oops.parser.AgentIdMap;
 import nl.rug.ai.mas.oops.parser.PropositionMap;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class Generator {
 	private Random d_rnd;
@@ -59,7 +59,6 @@ public class Generator {
 		}
         for (int i = 0; i < n; ++i) {
             Formula f = g.generate();
-            System.out.println(f);
         }
     }
 

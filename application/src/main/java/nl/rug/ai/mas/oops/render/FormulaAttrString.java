@@ -21,15 +21,11 @@ package nl.rug.ai.mas.oops.render;
 
 import nl.rug.ai.mas.oops.formula.*;
 
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Collection;
-
-import java.text.AttributedString;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.font.TextAttribute;
+import java.text.AttributedString;
+import java.util.*;
+import java.util.List;
 
 /**
  * Visit a Formula in order to generate an AttributedString from it.
@@ -106,6 +102,14 @@ public class FormulaAttrString implements FormulaVisitor {
 
 	public void visitImplication(Implication f) { 
 		visitBinary(Constants.IMPL);
+	}
+
+	public void visitAnnouncement(Announcement f) {
+		visitBinary(Constants.ANN);
+	}
+
+	public void visitSannouncement(Sannouncement f) {
+		visitBinary(Constants.SANN);
 	}
 
 	public void visitMultiBox(MultiBox f) { 

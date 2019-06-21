@@ -19,11 +19,10 @@
 
 package nl.rug.ai.mas.oops.render.tree;
 
-import java.util.Observer;
-import java.util.Observable;
-import java.awt.Point;
-import java.awt.Dimension;
+import java.awt.*;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class TreeStructuredDiagram<CellType extends Cell> implements Observer {
 	private TreeStructure<CellType> d_tree;
@@ -153,7 +152,7 @@ public class TreeStructuredDiagram<CellType extends Cell> implements Observer {
 		if (idx == 0) {
 			return placement.get(q).y;
 		}
-		CellType c = (CellType)uj.get(idx - 1);
+		CellType c = uj.get(idx - 1);
 		return placement.get(q).y - placement.get(c).y - c.getWidth();
 	}
 

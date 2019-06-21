@@ -20,15 +20,17 @@
 package nl.rug.ai.mas.oops.formula;
 
 public interface FormulaVisitor {
-	public void visitBiImplication(BiImplication f);
-	public void visitConjunction(Conjunction f);
-	public void visitDisjunction(Disjunction f);
-	public void visitImplication(Implication f);
-	public void visitMultiBox(MultiBox f);
-	public void visitMultiDiamond(MultiDiamond f);
-	public void visitNegation(Negation f);
-	public void visitProposition(Proposition f);
-	public void visitUniBox(UniBox f);
-	public void visitUniDiamond(UniDiamond f);
-	public void visitFormulaReference(FormulaReference f);
+	void visitBiImplication(BiImplication f);
+	void visitConjunction(Conjunction f);
+	void visitDisjunction(Disjunction f);
+	void visitImplication(Implication f);
+	void visitMultiBox(MultiBox f);
+	void visitMultiDiamond(MultiDiamond f);
+	void visitNegation(Negation f);
+	void visitProposition(Proposition f);
+	void visitUniBox(UniBox f);
+	void visitUniDiamond(UniDiamond f);
+	void visitFormulaReference(FormulaReference f);
+	void visitAnnouncement(Announcement f);
+	void visitSannouncement(Sannouncement f);
 }

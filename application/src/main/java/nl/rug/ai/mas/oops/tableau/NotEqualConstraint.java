@@ -19,7 +19,8 @@
 
 package nl.rug.ai.mas.oops.tableau;
 
-import nl.rug.ai.mas.oops.formula.*;
+import nl.rug.ai.mas.oops.formula.Agent;
+import nl.rug.ai.mas.oops.formula.Variable;
 
 public class NotEqualConstraint implements Constraint {
 	private Variable<Agent> d_a1;
@@ -31,11 +32,9 @@ public class NotEqualConstraint implements Constraint {
 	}
 
 	public boolean validate(NodeSubstitution s) {
-		if (s.getAgentSubstitution().get(d_a1).equals(
-					s.getAgentSubstitution().get(d_a2)))
-			return false;
-		return true;
-	}
+        return !s.getAgentSubstitution().get(d_a1).equals(
+                s.getAgentSubstitution().get(d_a2));
+    }
 
 	public String toString() {
 		return "CONSTRAINT(" + d_a1 + " != " + d_a2 + ")";

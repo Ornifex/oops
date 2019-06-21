@@ -1,18 +1,12 @@
 package nl.rug.ai.mas.oops.test;
 
-import static org.junit.Assert.*;
-import nl.rug.ai.mas.oops.formula.BiImplication;
-import nl.rug.ai.mas.oops.formula.Conjunction;
-import nl.rug.ai.mas.oops.formula.Disjunction;
-import nl.rug.ai.mas.oops.formula.FormulaReference;
-import nl.rug.ai.mas.oops.formula.Implication;
-import nl.rug.ai.mas.oops.formula.Negation;
-import nl.rug.ai.mas.oops.formula.Proposition;
+import nl.rug.ai.mas.oops.formula.*;
 import nl.rug.ai.mas.oops.parser.Context;
 import nl.rug.ai.mas.oops.parser.FormulaParser;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class ParserTest {
 	private Context d_context;
@@ -72,5 +66,16 @@ public class ParserTest {
 		assertTrue(d_parser.parse("#_1 p"));
 		assertTrue(d_parser.parse("#_V p"));
 		assertFalse(d_parser.parse("#_a p"));
+	}
+
+	@Test
+	public void testParseAnnouncement() {
+		Proposition p = d_context.getPropositionMap().getOrCreate("p");
+		Proposition q  = d_context.getPropositionMap().getOrCreate("q");
+
+		assertTrue(d_parser.parse("p ! q"));
+		assertEquals(new Announcement(p, q), d_parser.getFormula());
+		assertTrue(d_parser.parse("p ? q"));
+		assertEquals(new Sannouncement(p, q), d_parser.getFormula());
 	}
 }
